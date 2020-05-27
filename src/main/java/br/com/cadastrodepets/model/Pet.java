@@ -1,36 +1,31 @@
 package br.com.cadastrodepets.model;
 
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import br.com.cadastrodepets.auxiliary.TipoPetEnum;
 
 @Entity
 @Table
 public class Pet {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue
 	private long id;
 	
-	/*
-	 * @Column(name="id-tipo-pet", nullable=false)
-	 * 
-	 * @Enumerated(EnumType.ORDINAL) private TipoPetEnum tipoPet;
-	 */
-	
-	public Pet() {
-	}	
+	@ManyToOne(targetEntity = TipoPet.class, cascade = CascadeType.ALL)
+	@JoinColumn(name="tipoPet_id", nullable=false)
+	private TipoPet tipoPet;
 
-	public Pet(long id, TipoPetEnum tipoPet) {
+	public Pet() {
+	}
+
+	public Pet(long id, TipoPet tipoPet) {
 		this.id = id;
-		/* this.tipoPet = tipoPet; */
+		this.tipoPet = tipoPet;
 	}
 
 	public long getId() {
@@ -41,11 +36,11 @@ public class Pet {
 		this.id = id;
 	}
 
-	/*
-	 * public TipoPetEnum getTipoPet() { return tipoPet; }
-	 */
+	public TipoPet getTipoPet() {
+		return tipoPet;
+	}
 
-	/*
-	 * public void setTipoPet(TipoPetEnum tipoPet) { this.tipoPet = tipoPet; }
-	 */
+	public void setTipoPet(TipoPet tipoPet) {
+		this.tipoPet = tipoPet;
+	}
 }
