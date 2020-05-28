@@ -1,35 +1,34 @@
-package br.com.cadastrodepets.model;
+package br.com.cadastrodepets.pet.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 import com.sun.istack.NotNull;
 
 @Entity
-@Table
-public class TipoPet {
-	
+public class RacaPet {
+
 	@Id
 	@GeneratedValue
-	private Long id;
+	private long id;
 	
 	@NotNull
 	private String nome;
 
-	public TipoPet() {
+	public RacaPet() {
 	}
 
-	public TipoPet(Number id) {
-		this.id = (Long) id;
+	public RacaPet(long id, String nome) {
+		this.id = id;
+		this.nome = nome;
 	}
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
