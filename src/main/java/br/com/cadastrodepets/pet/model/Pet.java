@@ -1,5 +1,7 @@
 package br.com.cadastrodepets.pet.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.sun.istack.NotNull;
+
+import br.com.cadastrodepets.ong.model.Ong;
 
 @Entity
 public class Pet {
@@ -40,11 +44,19 @@ public class Pet {
 	@JoinColumn(name="statusPet_id", nullable=false)
 	private StatusPet statusPet;
 	
+	@NotNull
+	private LocalDate nascimento;
+	
+	@NotNull
+	@ManyToOne(targetEntity = Ong.class, cascade = CascadeType.ALL)
+	@JoinColumn(name="ong_id", nullable=false)
+	private Ong ong;
+	
 	public Pet() {
 	}
 
 	public Pet(long id, TipoPet tipoPet, SexoPet sexoPet, String nome, RacaPet racaPet, boolean castrado,
-			StatusPet statusPet) {
+			StatusPet statusPet, LocalDate nascimento, Ong ong) {
 		this.id = id;
 		this.tipoPet = tipoPet;
 		this.sexoPet = sexoPet;
@@ -52,6 +64,8 @@ public class Pet {
 		this.racaPet = racaPet;
 		this.castrado = castrado;
 		this.statusPet = statusPet;
+		this.nascimento = nascimento;
+		this.ong = ong;
 	}
 
 	public long getId() {
@@ -108,5 +122,21 @@ public class Pet {
 
 	public void setStatusPet(StatusPet statusPet) {
 		this.statusPet = statusPet;
-	}	
+	}
+
+	public LocalDate getNascimento() {
+		return nascimento;
+	}
+
+	public void setNascimento(LocalDate nascimento) {
+		this.nascimento = nascimento;
+	}
+
+	public Ong getOng() {
+		return ong;
+	}
+
+	public void setOng(Ong ong) {
+		this.ong = ong;
+	}
 }

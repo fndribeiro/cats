@@ -5,6 +5,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.cadastrodepets.ong.model.Ong;
+import br.com.cadastrodepets.ong.repository.OngRepository;
 import br.com.cadastrodepets.pet.model.Pet;
 import br.com.cadastrodepets.pet.model.RacaPet;
 import br.com.cadastrodepets.pet.model.StatusPet;
@@ -29,6 +31,9 @@ public class PetService {
 	@Autowired
 	private StatusPetRepository repositorioStatusPet;
 	
+	@Autowired
+	private OngRepository repositorioOng;
+	
 	public Pet criaPet(Pet pet) {
 		
 		Optional<TipoPet> tipoPet = repositorioTipoPet.findById(pet.getTipoPet().getId());		
@@ -39,6 +44,9 @@ public class PetService {
 		
 		Optional<StatusPet> statusPet = repositorioStatusPet.findById(pet.getStatusPet().getId());
 		pet.setStatusPet(statusPet.get());
+		
+		Optional<Ong> ong = repositorioOng.findById(pet.getOng().getId());
+		pet.setOng(ong.get());
 		
 		return repositorioPet.save(pet);
 	}
