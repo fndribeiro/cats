@@ -13,7 +13,9 @@ import javax.persistence.ManyToOne;
 
 import com.sun.istack.NotNull;
 
+import br.com.cadastrodepets.adotante.model.Adotante;
 import br.com.cadastrodepets.ong.model.Ong;
+import br.com.cadastrodepets.veterinario.model.Veterinario;
 
 @Entity
 public class Pet {
@@ -47,16 +49,23 @@ public class Pet {
 	@NotNull
 	private LocalDate nascimento;
 	
-	@NotNull
 	@ManyToOne(targetEntity = Ong.class, cascade = CascadeType.ALL)
 	@JoinColumn(name="ong_id", nullable=false)
 	private Ong ong;
 	
+	@ManyToOne(targetEntity = Adotante.class, cascade = CascadeType.ALL)
+	@JoinColumn(name="adotante_id", nullable = false)
+	private Adotante adotante;
+	
+	@ManyToOne(targetEntity = Veterinario.class, cascade = CascadeType.ALL)
+	@JoinColumn(name="veterinario_id", nullable = false)
+	private Veterinario veterinario;
+
 	public Pet() {
 	}
 
 	public Pet(long id, TipoPet tipoPet, SexoPet sexoPet, String nome, RacaPet racaPet, boolean castrado,
-			StatusPet statusPet, LocalDate nascimento, Ong ong) {
+			StatusPet statusPet, LocalDate nascimento, Ong ong, Adotante adotante, Veterinario veterinario) {
 		this.id = id;
 		this.tipoPet = tipoPet;
 		this.sexoPet = sexoPet;
@@ -66,6 +75,8 @@ public class Pet {
 		this.statusPet = statusPet;
 		this.nascimento = nascimento;
 		this.ong = ong;
+		this.adotante = adotante;
+		this.veterinario = veterinario;
 	}
 
 	public long getId() {
@@ -139,4 +150,20 @@ public class Pet {
 	public void setOng(Ong ong) {
 		this.ong = ong;
 	}
+
+	public Adotante getAdotante() {
+		return adotante;
+	}
+
+	public void setAdotante(Adotante adotante) {
+		this.adotante = adotante;
+	}
+
+	public Veterinario getVeterinario() {
+		return veterinario;
+	}
+
+	public void setVeterinario(Veterinario veterinario) {
+		this.veterinario = veterinario;
+	}	
 }
