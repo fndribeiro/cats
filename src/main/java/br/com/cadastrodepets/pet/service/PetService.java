@@ -11,10 +11,12 @@ import br.com.cadastrodepets.adotante.model.Adotante;
 import br.com.cadastrodepets.adotante.repository.AdotanteRepository;
 import br.com.cadastrodepets.ong.model.Ong;
 import br.com.cadastrodepets.ong.repository.OngRepository;
+import br.com.cadastrodepets.pet.model.LogStatusPet;
 import br.com.cadastrodepets.pet.model.Pet;
 import br.com.cadastrodepets.pet.model.RacaPet;
 import br.com.cadastrodepets.pet.model.StatusPet;
 import br.com.cadastrodepets.pet.model.TipoPet;
+import br.com.cadastrodepets.pet.repository.LogStatusPetRepository;
 import br.com.cadastrodepets.pet.repository.PetRepository;
 import br.com.cadastrodepets.pet.repository.RacaPetRepository;
 import br.com.cadastrodepets.pet.repository.StatusPetRepository;
@@ -45,6 +47,18 @@ public class PetService {
 
 	@Autowired
 	private VeterinarioRepository repositorioVeterinario;
+	
+	@Autowired
+	private LogStatusPetRepository repositorioLogStatusPet;
+	
+	public LogStatusPet logStatusPet(Pet pet) {
+		
+		LogStatusPet logStatusPet = new LogStatusPet();
+		logStatusPet.setPet(pet);
+		logStatusPet.setStatusPet(pet.getStatusPet());
+		
+		return repositorioLogStatusPet.save(logStatusPet);
+	}
 
 	public Pet criaPet(Pet pet) {
 
@@ -65,6 +79,8 @@ public class PetService {
 
 		Optional<Veterinario> veterinario = repositorioVeterinario.findById(pet.getVeterinario().getId());
 		pet.setVeterinario(veterinario.get());
+		
+		logStatusPet(pet);
 
 		return repositorioPet.save(pet);
 	}
@@ -87,7 +103,8 @@ public class PetService {
 			mapper.setTipoPet(pet.getTipoPet());
 			mapper.setVeterinario(pet.getVeterinario());
 			repositorioPet.save(mapper);
-			return ResponseEntity.ok().body("Pet Atualizado!");
+			logStatusPet(mapper);
+			return ResponseEntity.ok().body("Pet atualizado!");
 		}).orElse(ResponseEntity.notFound().build());
 	}
 }

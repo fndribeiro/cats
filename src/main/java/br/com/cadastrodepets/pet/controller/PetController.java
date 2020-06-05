@@ -23,7 +23,7 @@ public class PetController {
 	private PetService petService;
 	
 	@PostMapping
-	public Pet criaPet(@RequestBody Pet pet) {	
+	public Pet criaPet(@RequestBody Pet pet) {
 		return petService.criaPet(pet);
 	}
 	
