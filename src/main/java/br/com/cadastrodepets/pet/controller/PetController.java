@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.cadastrodepets.pet.model.LogStatusPet;
 import br.com.cadastrodepets.pet.model.Pet;
+import br.com.cadastrodepets.pet.service.LogStatusPetService;
 import br.com.cadastrodepets.pet.service.PetService;
 
 @RestController
@@ -21,6 +23,9 @@ public class PetController {
 
 	@Autowired
 	private PetService petService;
+	
+	@Autowired
+	private LogStatusPetService logStatusPetService;
 	
 	@PostMapping
 	public Pet criaPet(@RequestBody Pet pet) {
@@ -33,8 +38,18 @@ public class PetController {
 	}
 	
 	@PutMapping
-	public ResponseEntity<String> atualizaPet(@RequestParam long id, @RequestBody Pet pet) {
+	public ResponseEntity<Pet> atualizaPet(@RequestParam long id, @RequestBody Pet pet) {
 		return petService.atualizaPet(id, pet);
+	}
+	
+	@PutMapping(path = "/status")
+	public ResponseEntity<Pet> atualizaStatusPet(@RequestParam long id, @RequestBody Pet pet) throws InstantiationException, IllegalAccessException {
+		return petService.atualizaStatusPet(id, pet);
+	}
+	
+	@GetMapping(path = "/log")
+	public List<LogStatusPet> listaLogPorPet(@RequestParam long petId) {
+		return logStatusPetService.listaLogPorPet(petId);
 	}
 	
 }

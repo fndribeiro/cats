@@ -11,12 +11,10 @@ import br.com.cadastrodepets.adotante.model.Adotante;
 import br.com.cadastrodepets.adotante.repository.AdotanteRepository;
 import br.com.cadastrodepets.ong.model.Ong;
 import br.com.cadastrodepets.ong.repository.OngRepository;
-import br.com.cadastrodepets.pet.model.LogStatusPet;
 import br.com.cadastrodepets.pet.model.Pet;
 import br.com.cadastrodepets.pet.model.RacaPet;
 import br.com.cadastrodepets.pet.model.StatusPet;
 import br.com.cadastrodepets.pet.model.TipoPet;
-import br.com.cadastrodepets.pet.repository.LogStatusPetRepository;
 import br.com.cadastrodepets.pet.repository.PetRepository;
 import br.com.cadastrodepets.pet.repository.RacaPetRepository;
 import br.com.cadastrodepets.pet.repository.StatusPetRepository;
@@ -49,16 +47,7 @@ public class PetService {
 	private VeterinarioRepository repositorioVeterinario;
 	
 	@Autowired
-	private LogStatusPetRepository repositorioLogStatusPet;
-	
-	public LogStatusPet logStatusPet(Pet pet) {
-		
-		LogStatusPet logStatusPet = new LogStatusPet();
-		logStatusPet.setPet(pet);
-		logStatusPet.setStatusPet(pet.getStatusPet());
-		
-		return repositorioLogStatusPet.save(logStatusPet);
-	}
+	private LogStatusPetService logStatusPetService;
 
 	public Pet criaPet(Pet pet) {
 
@@ -80,31 +69,40 @@ public class PetService {
 		Optional<Veterinario> veterinario = repositorioVeterinario.findById(pet.getVeterinario().getId());
 		pet.setVeterinario(veterinario.get());
 		
-		logStatusPet(pet);
+		Pet savedPet = repositorioPet.save(pet);
+		logStatusPetService.logStatusPet(savedPet);
 
-		return repositorioPet.save(pet);
+		return savedPet;
 	}
-	
+
 	public List<Pet> listaPetPorOng(Long id) {
-		
 		return repositorioPet.findAllByOngId(id);
 	}
-	
-	public ResponseEntity<String> atualizaPet(long id, Pet pet) {
-		
-		return repositorioPet.findById(id).map(mapper -> {			
+
+	public ResponseEntity<Pet> atualizaPet(long id, Pet pet) {
+
+		return repositorioPet.findById(id).map(mapper -> {
 			mapper.setAdotante(pet.getAdotante());
 			mapper.setCastrado(pet.isCastrado());
 			mapper.setNascimento(pet.getNascimento());
 			mapper.setNome(pet.getNome());
 			mapper.setRacaPet(pet.getRacaPet());
 			mapper.setSexoPet(pet.getSexoPet());
-			mapper.setStatusPet(pet.getStatusPet());
 			mapper.setTipoPet(pet.getTipoPet());
 			mapper.setVeterinario(pet.getVeterinario());
 			repositorioPet.save(mapper);
-			logStatusPet(mapper);
-			return ResponseEntity.ok().body("Pet atualizado!");
+			return ResponseEntity.ok().body(mapper);
 		}).orElse(ResponseEntity.notFound().build());
 	}
+	
+	public ResponseEntity<Pet> atualizaStatusPet(long id, Pet pet) {
+		
+		return repositorioPet.findById(id).map(mapper -> {
+			mapper.setStatusPet(pet.getStatusPet());
+			repositorioPet.save(mapper);
+			logStatusPetService.logStatusPet(mapper);
+			return ResponseEntity.ok().body(mapper);
+		}).orElse(ResponseEntity.notFound().build());
+	}
+	
 }

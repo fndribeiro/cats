@@ -7,5 +7,5 @@ import br.com.cadastrodepets.pet.model.StatusPet;
 
 @Repository
 public interface StatusPetRepository extends JpaRepository<StatusPet, Long> {
-
+	
 }
