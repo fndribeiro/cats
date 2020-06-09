@@ -1,4 +1,4 @@
-package br.com.cadastrodepets.veterinario.controller;
+package br.com.cadastrodepets.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,4 +1,4 @@
-package br.com.cadastrodepets.pet.controller;
+package br.com.cadastrodepets.controller;
 
 import java.util.List;
 
