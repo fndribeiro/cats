@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import com.sun.istack.NotNull;
+
 @Entity
 public class Veterinario {
 	
@@ -11,14 +13,19 @@ public class Veterinario {
 	@GeneratedValue
 	private long id;
 	
+	@NotNull
 	private String nome;
+	
+	@NotNull
+	private String email;
 
 	public Veterinario() {
 	}
 
-	public Veterinario(long id, String nome) {
+	public Veterinario(long id, String nome, String email) {
 		this.id = id;
 		this.nome = nome;
+		this.email = email;
 	}
 
 	public long getId() {
@@ -36,4 +43,12 @@ public class Veterinario {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}	
 }

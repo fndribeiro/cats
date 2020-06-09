@@ -1,7 +1,6 @@
 package br.com.cadastrodepets.ong.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import com.sun.istack.NotNull;
@@ -10,7 +9,6 @@ import com.sun.istack.NotNull;
 public class Ong {
 
 	@Id
-	@GeneratedValue
 	private long id;
 	
 	@NotNull
