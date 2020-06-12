@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.cadastrodepets.pet.model.LogStatusPet;
 import br.com.cadastrodepets.pet.model.Pet;
+import br.com.cadastrodepets.pet.model.VacinaPet;
 import br.com.cadastrodepets.pet.service.LogStatusPetService;
 import br.com.cadastrodepets.pet.service.PetService;
+import br.com.cadastrodepets.pet.service.VacinaPetService;
 
 @RestController
 @RequestMapping(value = "/pet")
@@ -26,6 +28,9 @@ public class PetController {
 	
 	@Autowired
 	private LogStatusPetService logStatusPetService;
+	
+	@Autowired
+	private VacinaPetService vacinaPetService;
 	
 	@PostMapping
 	public Pet criaPet(@RequestBody Pet pet) {
@@ -43,13 +48,18 @@ public class PetController {
 	}
 	
 	@PutMapping(path = "/status")
-	public ResponseEntity<Pet> atualizaStatusPet(@RequestParam long id, @RequestBody Pet pet) throws InstantiationException, IllegalAccessException {
-		return petService.atualizaStatusPet(id, pet);
+	public ResponseEntity<Pet> atualizaStatusPet(@RequestParam long id, @RequestParam long idStatus) throws InstantiationException, IllegalAccessException {
+		return petService.atualizaStatusPet(id, idStatus);
 	}
 	
 	@GetMapping(path = "/log")
 	public List<LogStatusPet> listaLogPorPet(@RequestParam long petId) {
 		return logStatusPetService.listaLogPorPet(petId);
+	}
+	
+	@PostMapping(path = "/vacina")
+	public VacinaPet criaVacinaPet(@RequestBody VacinaPet vacinaPet) {
+		return vacinaPetService.criaVacinaPet(vacinaPet);
 	}
 	
 }

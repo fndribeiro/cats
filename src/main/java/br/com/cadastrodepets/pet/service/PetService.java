@@ -95,10 +95,11 @@ public class PetService {
 		}).orElse(ResponseEntity.notFound().build());
 	}
 	
-	public ResponseEntity<Pet> atualizaStatusPet(long id, Pet pet) {
+	public ResponseEntity<Pet> atualizaStatusPet(long id, long idStatus) {
 		
 		return repositorioPet.findById(id).map(mapper -> {
-			mapper.setStatusPet(pet.getStatusPet());
+			Optional<StatusPet> statusPet = repositorioStatusPet.findById(idStatus);
+			mapper.setStatusPet(statusPet.get());
 			repositorioPet.save(mapper);
 			logStatusPetService.logStatusPet(mapper);
 			return ResponseEntity.ok().body(mapper);

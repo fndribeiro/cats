@@ -58,7 +58,7 @@ public class Pet {
 	private Adotante adotante;
 	
 	@ManyToOne(targetEntity = Veterinario.class, cascade = CascadeType.ALL)
-	@JoinColumn(name="veterinario_id", nullable = false)
+	@JoinColumn(name="veterinario_id")
 	private Veterinario veterinario;
 
 	public Pet() {
