@@ -1,4 +1,4 @@
-package br.com.cadastrodepets.pet.model;
+package br.com.cadastrodepets.vacina.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -8,6 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.sun.istack.NotNull;
+
+import br.com.cadastrodepets.pet.model.TipoPet;
 
 @Entity
 public class Vacina {

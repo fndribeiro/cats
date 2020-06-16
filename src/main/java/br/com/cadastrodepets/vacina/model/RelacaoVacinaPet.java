@@ -1,4 +1,4 @@
-package br.com.cadastrodepets.pet.model;
+package br.com.cadastrodepets.vacina.model;
 
 import java.time.LocalDate;
 
@@ -11,8 +11,11 @@ import javax.persistence.ManyToOne;
 
 import com.sun.istack.NotNull;
 
+import br.com.cadastrodepets.pet.model.Pet;
+import br.com.cadastrodepets.pet.model.TipoPet;
+
 @Entity
-public class VacinaPet {
+public class RelacaoVacinaPet {
 	
 	@Id
 	@GeneratedValue
@@ -36,10 +39,10 @@ public class VacinaPet {
 	@JoinColumn(name="tipoPet_id", nullable=false)
 	private TipoPet tipoPet;
 
-	public VacinaPet() {
+	public RelacaoVacinaPet() {
 	}
 
-	public VacinaPet(long id, Pet pet, Vacina vacina, LocalDate data, LocalDate vencimento, TipoPet tipoPet) {
+	public RelacaoVacinaPet(long id, Pet pet, Vacina vacina, LocalDate data, LocalDate vencimento, TipoPet tipoPet) {
 		this.id = id;
 		this.pet = pet;
 		this.vacina = vacina;

@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import br.com.cadastrodepets.adotante.model.Adotante;
-import br.com.cadastrodepets.adotante.repository.AdotanteRepository;
 import br.com.cadastrodepets.ong.model.Ong;
 import br.com.cadastrodepets.ong.repository.OngRepository;
 import br.com.cadastrodepets.pet.model.Pet;
@@ -19,8 +17,6 @@ import br.com.cadastrodepets.pet.repository.PetRepository;
 import br.com.cadastrodepets.pet.repository.RacaPetRepository;
 import br.com.cadastrodepets.pet.repository.StatusPetRepository;
 import br.com.cadastrodepets.pet.repository.TipoPetRepository;
-import br.com.cadastrodepets.veterinario.model.Veterinario;
-import br.com.cadastrodepets.veterinario.repository.VeterinarioRepository;
 
 @Service
 public class PetService {
@@ -39,12 +35,6 @@ public class PetService {
 
 	@Autowired
 	private OngRepository repositorioOng;
-
-	@Autowired
-	private AdotanteRepository repositorioAdotante;
-
-	@Autowired
-	private VeterinarioRepository repositorioVeterinario;
 	
 	@Autowired
 	private LogStatusPetService logStatusPetService;
@@ -62,12 +52,6 @@ public class PetService {
 
 		Optional<Ong> ong = repositorioOng.findById(pet.getOng().getId());
 		pet.setOng(ong.get());
-
-		Optional<Adotante> adotante = repositorioAdotante.findById(pet.getAdotante().getId());
-		pet.setAdotante(adotante.get());
-
-		Optional<Veterinario> veterinario = repositorioVeterinario.findById(pet.getVeterinario().getId());
-		pet.setVeterinario(veterinario.get());
 		
 		Pet savedPet = repositorioPet.save(pet);
 		logStatusPetService.logStatusPet(savedPet);

@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.cadastrodepets.pet.model.LogStatusPet;
 import br.com.cadastrodepets.pet.model.Pet;
-import br.com.cadastrodepets.pet.model.VacinaPet;
 import br.com.cadastrodepets.pet.service.LogStatusPetService;
 import br.com.cadastrodepets.pet.service.PetService;
-import br.com.cadastrodepets.pet.service.VacinaPetService;
+import br.com.cadastrodepets.vacina.model.RelacaoVacinaPet;
+import br.com.cadastrodepets.vacina.service.VacinaService;
 
 @RestController
 @RequestMapping(value = "/pet")
@@ -30,7 +30,7 @@ public class PetController {
 	private LogStatusPetService logStatusPetService;
 	
 	@Autowired
-	private VacinaPetService vacinaPetService;
+	private VacinaService vacinaService;
 	
 	@PostMapping
 	public Pet criaPet(@RequestBody Pet pet) {
@@ -58,8 +58,13 @@ public class PetController {
 	}
 	
 	@PostMapping(path = "/vacina")
-	public VacinaPet criaVacinaPet(@RequestBody VacinaPet vacinaPet) {
-		return vacinaPetService.criaVacinaPet(vacinaPet);
+	public RelacaoVacinaPet criaRelacaoVacinaPet(@RequestBody RelacaoVacinaPet vacinaPet) {
+		return vacinaService.criaRelacaoVacinaPet(vacinaPet);
+	}
+	
+	@GetMapping(path = "/vacina")
+	public List<RelacaoVacinaPet> listaVacinaPorPet(@RequestParam long petId) {
+		return vacinaService.listaVacinaPorPet(petId);
 	}
 	
 }

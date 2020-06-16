@@ -54,11 +54,11 @@ public class Pet {
 	private Ong ong;
 	
 	@ManyToOne(targetEntity = Adotante.class, cascade = CascadeType.ALL)
-	@JoinColumn(name="adotante_id", nullable = false)
+	@JoinColumn(name="adotante_id", nullable=true)
 	private Adotante adotante;
 	
 	@ManyToOne(targetEntity = Veterinario.class, cascade = CascadeType.ALL)
-	@JoinColumn(name="veterinario_id")
+	@JoinColumn(name="veterinario_id", nullable=true)
 	private Veterinario veterinario;
 
 	public Pet() {
