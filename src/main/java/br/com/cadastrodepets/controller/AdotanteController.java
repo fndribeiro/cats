@@ -1,5 +1,7 @@
 package br.com.cadastrodepets.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +19,7 @@ public class AdotanteController {
 	private AdotanteService adotanteService;
 	
 	@PostMapping
-	public Adotante criaAdotante(@RequestBody Adotante ado) {
+	public Adotante criaAdotante(@Valid @RequestBody Adotante ado) {
 		return adotanteService.criaAdotante(ado);
 	}
 	
