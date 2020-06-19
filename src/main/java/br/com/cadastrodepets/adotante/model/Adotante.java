@@ -15,17 +15,17 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import com.sun.istack.NotNull;
 
-import br.com.cadastrodepets.endereco.model.Endereco;
-import br.com.cadastrodepets.endereco.model.TipoResidenciaEnum;
+import br.com.cadastrodepets.contato.model.Contato;
+import br.com.cadastrodepets.contato.model.TipoResidenciaEnum;
 
 @Entity
-public class Adotante extends Endereco {
+public class Adotante extends Contato {
 
 	@Id
 	@GeneratedValue
 	private long id;
 	
-	@Column(unique=true)
+	@Column(unique=true, nullable = false)
 	@Pattern(regexp = "^[0-9]{11}$")
 	private String cpf;
 	

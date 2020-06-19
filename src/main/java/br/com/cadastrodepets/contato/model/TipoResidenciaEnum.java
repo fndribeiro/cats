@@ -1,4 +1,4 @@
-package br.com.cadastrodepets.endereco.model;
+package br.com.cadastrodepets.contato.model;
 
 public enum TipoResidenciaEnum {
 
