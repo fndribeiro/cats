@@ -1,9 +1,13 @@
 package br.com.cadastrodepets.contato.model;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.Pattern;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import com.sun.istack.NotNull;
 
@@ -40,12 +44,17 @@ public class Contato {
 	@NotNull
 	@Pattern(regexp = "^[0-9]{8,9}$")
 	private String telefone;
+	
+	@CreationTimestamp
+	private LocalDateTime dataCadastro;
 
 	public Contato() {
 	}
 
-	public Contato(String cep, String logradouro, String numero, String complemento, String bairro, String localidade,
-			UnidadeFederativaEnum uf, String telefone, String email) {
+	public Contato(@Pattern(regexp = "^[0-9]{8}$") String cep, String logradouro, String numero, String complemento,
+			String bairro, String localidade, UnidadeFederativaEnum uf,
+			@Pattern(regexp = "^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])$") String email,
+			@Pattern(regexp = "^[0-9]{8,9}$") String telefone, LocalDateTime dataCadastro) {
 		this.cep = cep;
 		this.logradouro = logradouro;
 		this.numero = numero;
@@ -55,6 +64,7 @@ public class Contato {
 		this.uf = uf;
 		this.email = email;
 		this.telefone = telefone;
+		this.dataCadastro = dataCadastro;
 	}
 
 	public String getCep() {
@@ -127,5 +137,13 @@ public class Contato {
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+
+	public LocalDateTime getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(LocalDateTime dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 }

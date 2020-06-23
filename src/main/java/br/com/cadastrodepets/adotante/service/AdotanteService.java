@@ -1,5 +1,7 @@
 package br.com.cadastrodepets.adotante.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -36,5 +38,9 @@ public class AdotanteService {
 			repositorioAdotante.save(mapper);
 			return ResponseEntity.ok().body(mapper);
 		}).orElse(ResponseEntity.notFound().build());
+	}
+	
+	public List<Adotante> listaAdotante() {
+		return repositorioAdotante.findAll();
 	}
 }

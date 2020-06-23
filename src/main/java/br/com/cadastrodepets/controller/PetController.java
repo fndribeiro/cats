@@ -2,6 +2,8 @@ package br.com.cadastrodepets.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,12 +45,12 @@ public class PetController {
 	}
 	
 	@PutMapping
-	public ResponseEntity<Pet> atualizaPet(@RequestParam long id, @RequestBody Pet pet) {
+	public ResponseEntity<Pet> atualizaPet(@Valid @RequestParam long id, @RequestBody Pet pet) {
 		return petService.atualizaPet(id, pet);
 	}
 	
 	@PutMapping(path = "/status")
-	public ResponseEntity<Pet> atualizaStatusPet(@RequestParam long id, @RequestParam long idStatus) throws InstantiationException, IllegalAccessException {
+	public ResponseEntity<Pet> atualizaStatusPet(@Valid @RequestParam long id, @RequestParam long idStatus) throws InstantiationException, IllegalAccessException {
 		return petService.atualizaStatusPet(id, idStatus);
 	}
 	
@@ -58,12 +60,12 @@ public class PetController {
 	}
 	
 	@PostMapping(path = "/vacina")
-	public RelacaoVacinaPet criaRelacaoVacinaPet(@RequestBody RelacaoVacinaPet vacinaPet) {
+	public RelacaoVacinaPet criaRelacaoVacinaPet(@Valid @RequestBody RelacaoVacinaPet vacinaPet) {
 		return vacinaService.criaRelacaoVacinaPet(vacinaPet);
 	}
 	
 	@GetMapping(path = "/vacina")
-	public List<RelacaoVacinaPet> listaVacinaPorPet(@RequestParam long petId) {
+	public List<RelacaoVacinaPet> listaVacinaPorPet(@Valid@RequestParam long petId) {
 		return vacinaService.listaVacinaPorPet(petId);
 	}
 	

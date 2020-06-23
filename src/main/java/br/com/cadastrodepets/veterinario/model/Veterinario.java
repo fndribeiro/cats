@@ -1,31 +1,36 @@
 package br.com.cadastrodepets.veterinario.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Pattern;
 
 import com.sun.istack.NotNull;
 
+import br.com.cadastrodepets.contato.model.Contato;
+
 @Entity
-public class Veterinario {
+public class Veterinario extends Contato {
 	
 	@Id
 	@GeneratedValue
 	private long id;
 	
-	@NotNull
-	private String nome;
+	@Column(unique=true, nullable = false)
+	@Pattern(regexp = "^([A-Z0-9]){6}$")
+	private String crmv;
 	
 	@NotNull
-	private String email;
+	private String nome;	
 
 	public Veterinario() {
 	}
 
-	public Veterinario(long id, String nome, String email) {
+	public Veterinario(long id, String nome, String crmv) {
 		this.id = id;
 		this.nome = nome;
-		this.email = email;
+		this.crmv = crmv;
 	}
 
 	public long getId() {
@@ -44,11 +49,11 @@ public class Veterinario {
 		this.nome = nome;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getCrmv() {
+		return crmv;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}	
+	public void setCrmv(String crmv) {
+		this.crmv = crmv;
+	}
 }

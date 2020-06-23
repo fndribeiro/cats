@@ -2,6 +2,8 @@ package br.com.cadastrodepets.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +23,7 @@ public class VacinaController {
 	private VacinaService vacinaService;
 	
 	@PostMapping
-	public Vacina criaVacina(@RequestBody Vacina vacina) {
+	public Vacina criaVacina(@Valid @RequestBody Vacina vacina) {
 		return vacinaService.criaVacina(vacina);
 	}
 	
