@@ -35,7 +35,7 @@ public class PetController {
 	private VacinaService vacinaService;
 	
 	@PostMapping
-	public Pet criaPet(@RequestBody Pet pet) {
+	public Pet criaPet(@Valid @RequestBody Pet pet) {
 		return petService.criaPet(pet);
 	}
 	
@@ -65,7 +65,7 @@ public class PetController {
 	}
 	
 	@GetMapping(path = "/vacina")
-	public List<RelacaoVacinaPet> listaVacinaPorPet(@Valid@RequestParam long petId) {
+	public List<RelacaoVacinaPet> listaVacinaPorPet(@Valid @RequestParam long petId) {
 		return vacinaService.listaVacinaPorPet(petId);
 	}
 	

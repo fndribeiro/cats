@@ -74,6 +74,7 @@ public class PetService {
 			mapper.setSexoPet(pet.getSexoPet());
 			mapper.setTipoPet(pet.getTipoPet());
 			mapper.setVeterinario(pet.getVeterinario());
+			mapper.setFoto(pet.getFoto());
 			repositorioPet.save(mapper);
 			return ResponseEntity.ok().body(mapper);
 		}).orElse(ResponseEntity.notFound().build());

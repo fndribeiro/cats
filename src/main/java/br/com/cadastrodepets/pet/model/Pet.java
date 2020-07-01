@@ -36,7 +36,7 @@ public class Pet {
 	private String nome;
 	
 	@ManyToOne(targetEntity = RacaPet.class, cascade = CascadeType.ALL)
-	@JoinColumn(name="racaPet_id", nullable=false)
+	@JoinColumn(name="racaPet_id", nullable=true)
 	private RacaPet racaPet;
 	
 	@NotNull
@@ -46,7 +46,6 @@ public class Pet {
 	@JoinColumn(name="statusPet_id", nullable=false)
 	private StatusPet statusPet;
 	
-	@NotNull
 	private LocalDate nascimento;
 	
 	@ManyToOne(targetEntity = Ong.class, cascade = CascadeType.ALL)
@@ -60,12 +59,14 @@ public class Pet {
 	@ManyToOne(targetEntity = Veterinario.class, cascade = CascadeType.ALL)
 	@JoinColumn(name="veterinario_id", nullable=true)
 	private Veterinario veterinario;
+	
+	private String foto;	
 
 	public Pet() {
 	}
 
 	public Pet(long id, TipoPet tipoPet, SexoPet sexoPet, String nome, RacaPet racaPet, boolean castrado,
-			StatusPet statusPet, LocalDate nascimento, Ong ong, Adotante adotante, Veterinario veterinario) {
+			StatusPet statusPet, LocalDate nascimento, Ong ong, Adotante adotante, Veterinario veterinario, String foto) {
 		this.id = id;
 		this.tipoPet = tipoPet;
 		this.sexoPet = sexoPet;
@@ -77,6 +78,7 @@ public class Pet {
 		this.ong = ong;
 		this.adotante = adotante;
 		this.veterinario = veterinario;
+		this.foto = foto;
 	}
 
 	public long getId() {
@@ -165,5 +167,13 @@ public class Pet {
 
 	public void setVeterinario(Veterinario veterinario) {
 		this.veterinario = veterinario;
-	}	
+	}
+	
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
 }
